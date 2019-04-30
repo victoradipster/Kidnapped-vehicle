@@ -8,9 +8,9 @@ A vehicle equiped with range finder sensors and a GPS has been kidnapped and kep
 From here now, we can then associate each paticle's `xm,ym` values to a certain landmark position which will be read from the `map_data.txt` file. The beauty of the landamark association is that at the time when the vehicle sensed the distances to it's nearest landmark, there were some particles were close or almost at the location where the vehicle is. So the transformed `xm,ym` for such a particle or particles will be very to a certain landmark coordinate values. So in an ideal case, the the transfromed `xm,ym` for some particle will exactly match the landmark coordinates for which the vehicle's onboard sensors got `xc,yc` from. Some of the particle's transformed `xm,ym` will be so off from the sensed landmark coordinates. This then bring us to another concept on the project call weights. Particle's whose transformed observations closely or exactly matches landmark coordinates will be given `higher weights` while those whose transformed `xm,ym` will be so off from the sensed landmark coordinates are given `lower weights`. Weights are assighed to particles based on how well their transformed `xm,ym` matches landmark coordinates that were sensed by vehicle's onboard sensors.Generally, this weight update process is done  `Multivariate-Gaussian probability density` function which looks like this
 ![Screenshot](https://github.com/victoradipster/Kidnapped-vehicle/blob/master/Kidnapped_vehicle_working/screenshots/Multivariate-Gaussian%20probability%20density.png)
 
--Recall that for this example the standard deviation for both x and y is 0.3
--x and y are the transformed observations`(xm,ym)` which are given in the map coordinate system.
--μx and μy are the coordinates of the nearest landmarks
+- Recall that for this example the standard deviation for both x and y is 0.3
+- x and y are the transformed observations`(xm,ym)` which are given in the map coordinate system.
+- μx and μy are the coordinates of the nearest landmarks
 
 The last thing now to do is resample particles after weights update. The basic idea here is just that particles with higher weights will be drawn while those with smaller weights are left left out.Resampling is the technique used to randomly drawing new particles from the set of `updated weights` particles with replacement in proportion to their importance weights. After resampling, particles with higher weights likely to stay and all others may die out.
     All that said above can be broken down into the following steps;
